@@ -1,0 +1,33 @@
+{
+  "name": "expo-outbrain-widget",
+  "version": "1.0.0",
+  "description": "Outbrain SmartFeed Widget for Expo SDK 55+ (New Architecture compatible)",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "echo 'No build step required - raw TS consumed by Metro'"
+  },
+  "keywords": [
+    "expo",
+    "react-native",
+    "outbrain",
+    "smartfeed",
+    "widget",
+    "new-architecture",
+    "expo-sdk-55"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "expo": ">=55.0.0",
+    "expo-modules-core": "*",
+    "react": ">=19.0.0",
+    "react-native": ">=0.83.0",
+    "react-native-webview": ">=13.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "*",
+    "@types/react-native": "*",
+    "typescript": "^5.0.0"
+  },
+  "app.plugin": "./plugin/withOutbrain.js"
+}
