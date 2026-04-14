@@ -1,11 +1,17 @@
-import { requireNativeModule } from "expo-modules-core";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.registerOutbrain = registerOutbrain;
+exports.setTestMode = setTestMode;
+exports.setTestLocation = setTestLocation;
+exports.setDisplayTest = setDisplayTest;
+const expo_modules_core_1 = require("expo-modules-core");
 /**
  * Native Outbrain module bridge.
  *
  * Exposes Outbrain.register(), setTestMode(), testLocation()
  * from the native Android/iOS SDKs via Expo Modules API.
  */
-const ExpoOutbrain = requireNativeModule("ExpoOutbrain");
+const ExpoOutbrain = (0, expo_modules_core_1.requireNativeModule)("ExpoOutbrain");
 /**
  * Register the app with Outbrain.
  * Must be called once at app startup, before rendering any OutbrainWidget.
@@ -21,7 +27,7 @@ const ExpoOutbrain = requireNativeModule("ExpoOutbrain");
  * await registerOutbrain('YOUR_PARTNER_KEY');
  * ```
  */
-export async function registerOutbrain(partnerKey) {
+async function registerOutbrain(partnerKey) {
     return await ExpoOutbrain.register(partnerKey);
 }
 /**
@@ -31,7 +37,7 @@ export async function registerOutbrain(partnerKey) {
  *
  * @param enabled - true to enable test mode
  */
-export function setTestMode(enabled) {
+function setTestMode(enabled) {
     ExpoOutbrain.setTestMode(enabled);
 }
 /**
@@ -40,7 +46,7 @@ export function setTestMode(enabled) {
  *
  * @param location - 2-letter country code (e.g. "us", "gb", "fr")
  */
-export function setTestLocation(location) {
+function setTestLocation(location) {
     ExpoOutbrain.testLocation(location);
 }
 /**
@@ -49,6 +55,6 @@ export function setTestLocation(location) {
  *
  * @param enabled - true to enable display ads test mode
  */
-export function setDisplayTest(enabled) {
+function setDisplayTest(enabled) {
     ExpoOutbrain.setDisplayTest(enabled);
 }

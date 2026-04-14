@@ -1,10 +1,10 @@
 {
   "name": "expo-outbrain-widget",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Outbrain SmartFeed Widget for Expo SDK 55+ (New Architecture compatible)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist", "src", "plugin"],
+  "files": ["dist", "src", "plugin", "app.plugin.js"],
   "scripts": {
     "build": "tsc --noEmit false"
   },

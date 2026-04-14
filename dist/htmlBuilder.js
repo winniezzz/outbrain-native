@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.buildWidgetHtml = buildWidgetHtml;
 /**
  * Generates the HTML content for the Outbrain Bridge widget.
  *
@@ -10,7 +13,7 @@
  * (SFWebViewWidget on Android, SFWidget on iOS) — they all load a
  * WebView internally. We just do it directly from React Native.
  */
-export function buildWidgetHtml(props) {
+function buildWidgetHtml(props) {
     const { widgetId, widgetIndex = 0, articleUrl, partnerKey, darkMode = false, testMode = false, testLocation, extId, extSecondaryId, pubImpId, consentV1, consentV2, ccpaString, userId, usePortalUrl = false, useBundleUrl = false, useContentUrl = false, lang, psub, } = props;
     // Build OBR configuration parameters
     const configParams = {};

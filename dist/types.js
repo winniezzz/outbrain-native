@@ -1,4 +1,5 @@
+"use strict";
 /**
  * Types for Outbrain Widget events and props
  */
-export {};
+Object.defineProperty(exports, "__esModule", { value: true });

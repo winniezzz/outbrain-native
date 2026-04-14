@@ -1,8 +1,22 @@
-import { jsx as _jsx } from "react/jsx-runtime";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { Linking, StyleSheet, View, } from "react-native";
-import { WebView } from "react-native-webview";
-import { buildWidgetHtml } from "./htmlBuilder";
+"use strict";
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.OutbrainWidget = OutbrainWidget;
+const jsx_runtime_1 = require("react/jsx-runtime");
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const react_native_webview_1 = require("react-native-webview");
+const htmlBuilder_1 = require("./htmlBuilder");
 /**
  * OutbrainWidget - Renders an Outbrain SmartFeed widget inside a WebView.
  *
@@ -28,12 +42,12 @@ import { buildWidgetHtml } from "./htmlBuilder";
  * />
  * ```
  */
-export function OutbrainWidget(props) {
-    const { handler, style, darkMode = false, ...widgetProps } = props;
-    const webViewRef = useRef(null);
-    const [widgetHeight, setWidgetHeight] = useState(1);
+function OutbrainWidget(props) {
+    const { handler, style, darkMode = false } = props, widgetProps = __rest(props, ["handler", "style", "darkMode"]);
+    const webViewRef = (0, react_1.useRef)(null);
+    const [widgetHeight, setWidgetHeight] = (0, react_1.useState)(1);
     // Generate HTML only when props change
-    const html = useMemo(() => buildWidgetHtml({ ...widgetProps, darkMode, handler }), [
+    const html = (0, react_1.useMemo)(() => (0, htmlBuilder_1.buildWidgetHtml)(Object.assign(Object.assign({}, widgetProps), { darkMode, handler })), [
         widgetProps.widgetId,
         widgetProps.widgetIndex,
         widgetProps.articleUrl,
@@ -57,7 +71,8 @@ export function OutbrainWidget(props) {
     /**
      * Handle messages from the WebView bridge
      */
-    const onMessage = useCallback((event) => {
+    const onMessage = (0, react_1.useCallback)((event) => {
+        var _a, _b;
         try {
             const message = JSON.parse(event.nativeEvent.data);
             switch (message.type) {
@@ -65,34 +80,34 @@ export function OutbrainWidget(props) {
                     const newHeight = Math.ceil(message.data.height);
                     if (newHeight > 0 && newHeight !== widgetHeight) {
                         setWidgetHeight(newHeight);
-                        handler?.onHeightChange?.(newHeight);
+                        (_a = handler === null || handler === void 0 ? void 0 : handler.onHeightChange) === null || _a === void 0 ? void 0 : _a.call(handler, newHeight);
                     }
                     break;
                 }
                 case "recClick": {
                     const url = message.data.url;
-                    if (handler?.onRecClick) {
+                    if (handler === null || handler === void 0 ? void 0 : handler.onRecClick) {
                         handler.onRecClick(url);
                     }
                     else {
                         // Default: open in system browser
-                        Linking.openURL(url).catch((err) => console.warn("OutbrainWidget: Failed to open URL", err));
+                        react_native_1.Linking.openURL(url).catch((err) => console.warn("OutbrainWidget: Failed to open URL", err));
                     }
                     break;
                 }
                 case "organicClick": {
                     const url = message.data.url;
-                    if (handler?.onOrganicClick) {
+                    if (handler === null || handler === void 0 ? void 0 : handler.onOrganicClick) {
                         handler.onOrganicClick(url);
                     }
                     else {
                         // Default: open in system browser
-                        Linking.openURL(url).catch((err) => console.warn("OutbrainWidget: Failed to open URL", err));
+                        react_native_1.Linking.openURL(url).catch((err) => console.warn("OutbrainWidget: Failed to open URL", err));
                     }
                     break;
                 }
                 case "widgetEvent": {
-                    handler?.onWidgetEvent?.(message.data.eventName, message.data.data || {});
+                    (_b = handler === null || handler === void 0 ? void 0 : handler.onWidgetEvent) === null || _b === void 0 ? void 0 : _b.call(handler, message.data.eventName, message.data.data || {});
                     break;
                 }
                 default:
@@ -109,7 +124,7 @@ export function OutbrainWidget(props) {
         overflow: "hidden",
         backgroundColor: darkMode ? "#1a1a1a" : "#ffffff",
     };
-    return (_jsx(View, { style: [containerStyle, style], children: _jsx(WebView, { ref: webViewRef, source: { html, baseUrl: "https://widgets.outbrain.com" }, style: styles.webview, onMessage: onMessage, 
+    return ((0, jsx_runtime_1.jsx)(react_native_1.View, { style: [containerStyle, style], children: (0, jsx_runtime_1.jsx)(react_native_webview_1.WebView, { ref: webViewRef, source: { html, baseUrl: "https://widgets.outbrain.com" }, style: styles.webview, onMessage: onMessage, 
             // Performance & compatibility
             javaScriptEnabled: true, domStorageEnabled: true, startInLoadingState: false, originWhitelist: ["*"], mixedContentMode: "compatibility", allowsInlineMediaPlayback: true, mediaPlaybackRequiresUserAction: false, 
             // Disable scrolling - parent ScrollView handles it
@@ -127,7 +142,7 @@ export function OutbrainWidget(props) {
             // User agent - append Outbrain identifier
             applicationNameForUserAgent: "OutbrainReactNativeSDK/1.0.0" }) }));
 }
-const styles = StyleSheet.create({
+const styles = react_native_1.StyleSheet.create({
     webview: {
         flex: 1,
         width: "100%",
